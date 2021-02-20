@@ -16,7 +16,7 @@
       <div class="container">
          <div class="cart">
             <div class="col-md-12 col-lg-10 mx-auto">
-               <div id= "remove-phoneSection" class="cart-item">
+               <div id="remove-phoneSection" class="cart-item">
                   <div class="row">
                      <div class="col-md-7 center-item">
                         <img src="images/product-1.png" alt="">
@@ -26,16 +26,16 @@
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
                            <button id="minus-button" class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" id="current-value" class="form-control text-center" value="1">
+                           <input type="text" id="current-value" class="form-control text-center" value="0">
                            <button id="plus-button" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
                         <h5>$ <span id="iphone-price">1219</span> </h5>
-                        <img id="remove-phone" src="images/remove.png" alt="" class="remove-item">
+                        <img id="remove-phone-section" src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
                </div>
 
-               <div class="cart-item">
+               <div id="remove-coverSection" class="cart-item">
                   <div class="row">
                      <div class="col-md-7 center-item mx-auto">
                         <img src="images/product-2.png" alt="">
@@ -43,13 +43,12 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
-
+                           <button id="cover-minus-button" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="current-value-cover" type="text" class="form-control text-center" value="0">
+                           <button id="cover-plus-button" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$59</h5>
-                        <img src="images/remove.png" alt="" class="remove-item">
+                        <h5>$ <span id='cover-price'>59</span> </h5>
+                        <img id="remove-cover-section" src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
                </div>
@@ -64,9 +63,9 @@
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
+                        <h5>$ <span id="sub-total">0</span></h5>
                         <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5>$ <span id="sub-total">0</span> </h5>
                      </div>
                   </div>
                </div>
@@ -80,40 +79,84 @@
 
    <!--this is area for javascript-->
    <script>
-      //minus button event
+
+      //minus button event for phone
       var minusBtn = document.getElementById('minus-button')
-      minusBtn.addEventListener('click', function(blank){
-         mobileCount('current-value', -1);
+      minusBtn.addEventListener('click', function (blank) {
+         productCount('current-value', -1);
+
       })
-      //plus button event
+
+      //plus button event for phone
       var plusBtn = document.getElementById('plus-button');
-      plusBtn.addEventListener('click', function(blank){
-         mobileCount ('current-value', 1);
+      plusBtn.addEventListener('click', function (blank) {
+         productCount('current-value', 1);
       })
 
-      //product Count function
-      function mobileCount (id, num){
-        var currentValue = document.getElementById(id).value;
-        var currentValueNumber = parseFloat(currentValue);
-        var incress = num;
-        var newValue = currentValueNumber + incress;
-        if (newValue == 0){
-           return 1;
-        }
-        document.getElementById(id).value = newValue;
-
-        var iphonePrice = document.getElementById('iphone-price').innerText;
-        var totalPhonePrice = 1219 * newValue;
-        document.getElementById('iphone-price').innerText = totalPhonePrice;
+      //phone Count function
+      function productCount(id, num) {
+         var currentValue = document.getElementById(id).value;
+         var currentValueNumber = parseFloat(currentValue);
+         var newValue = currentValueNumber + num;
+         if (newValue == 0) {
+            return 0;
+         }
+         document.getElementById('current-value').value = newValue;
+         var totalPrice = document.getElementById('iphone-price').innerText;
+         var totalPriceNumberValue = newValue * 1219;
+         document.getElementById('iphone-price').innerText = totalPriceNumberValue;
       }
-      //remove phone section
-      var removePhone = document.getElementById('remove-phone');
-      removePhone.addEventListener('click', function(){
-         var removePhoneSection = document.getElementById('remove-phoneSection');
-         removePhoneSection.style.display= 'none';
+
+      //call to remove phone section
+      removeSection('remove-phone-section', 'remove-phoneSection')
+
+      //minus button event for cover
+      var minusBtnCover = document.getElementById('cover-minus-button');
+      minusBtnCover.addEventListener('click', function (blank) {
+         coverCount('current-value-cover', -1);
       })
+
+      //plus button event for cover
+      var plusBtnCover = document.getElementById('cover-plus-button');
+      plusBtnCover.addEventListener('click', function (blank) {
+         coverCount('current-value-cover', 1);
+      })
+
+      //cover count function
+      function coverCount(id, num) {
+         var currentValue = document.getElementById(id).value;
+         var currentValueNumber = parseFloat(currentValue);
+         var newValuecover = currentValueNumber + num;
+         if (newValuecover == 0) {
+            return 0;
+         }
+         document.getElementById('current-value-cover').value = newValuecover;
+         var totalPrice = document.getElementById('cover-price').innerText;
+         var totalPriceNumberValue = newValuecover * 59;
+         document.getElementById('cover-price').innerText = totalPriceNumberValue;
+      }
+
+      //call to remove cover section
+      removeSection('remove-cover-section', 'remove-coverSection')
+
+      //remove section function
+      function removeSection(id, value) {
+         var remove = document.getElementById(id);
+         remove.addEventListener('click', function () {
+            var removePhoneSection = document.getElementById(value);
+            removePhoneSection.style.display = 'none';
+         })
+      }
+
+      //bill section
+      var subtotal = document.getElementById('sub-total').innerText;
+      var phonetotalPrice = document.getElementById('iphone-price').innerText;
+      var phonetotalPriceNumber =parseFloat(phonetotalPrice);
+      var covertotalPrice = document.getElementById('cover-price').innerText;
+      var covertoalPriceNumber =parseFloat(covertotalPrice);
+      var phoneCoverTotalPrice = phonetotalPriceNumber + covertoalPriceNumber;
+      document.getElementById('sub-total').innerText = phoneCoverTotalPrice;
       
-  
    </script>
 </body>
 
