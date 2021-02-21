@@ -15,7 +15,7 @@
    <section>
       <div class="container">
          <div class="cart">
-            <div class="col-md-12 col-lg-10 mx-auto">
+            <div id = 'remove-cart' class="col-md-12 col-lg-10 mx-auto">
                <div id="remove-phoneSection" class="cart-item">
                   <div class="row">
                      <div class="col-md-7 center-item">
@@ -64,14 +64,17 @@
 
                      <div class="col-md-4 status">
                         <h5>$ <span id="sub-total">0</span></h5>
-                        <h5>$0</h5>
-                        <h5>$ <span id="sub-total">0</span> </h5>
+                        <h5>$ <span id = 'tax'>0</span> </h5>
+                        <h5>$ <span id="total">0</span> </h5>
                      </div>
                   </div>
                </div>
                <div class="col-md-12 pt-4 pb-4">
-                  <button type="button" class="btn btn-success check-out">Check Out</button>
-               </div>
+                  <button id="buy-Button" type="button" class="btn btn-success check-out">Check Out</button>
+               </div> 
+            </div>
+            <div id= "checkout-message" class="success-message">
+               <h1>Thank you for Check out</h1>
             </div>
          </div>
       </div>
@@ -105,6 +108,24 @@
          var totalPrice = document.getElementById('iphone-price').innerText;
          var totalPriceNumberValue = newValue * 1219;
          document.getElementById('iphone-price').innerText = totalPriceNumberValue;
+
+      var subtotal = document.getElementById('sub-total').innerText;
+      var phonetotalPrice = document.getElementById('iphone-price').innerText;
+      var phonetotalPriceNumber =parseFloat(phonetotalPrice);
+      var covertotalPrice = document.getElementById('cover-price').innerText;
+      var covertoalPriceNumber =parseFloat(covertotalPrice);
+      var phoneAndCoverPrice = phonetotalPriceNumber +covertoalPriceNumber;
+      document.getElementById('sub-total').innerText = phoneAndCoverPrice;
+
+      var tax = document.getElementById('tax').innerText;
+      var coverTax = phoneAndCoverPrice / 100;
+      var coverTaxParcentage = coverTax * 2;
+      var taxRound = Math.round(coverTaxParcentage);
+      document.getElementById('tax').innerText = taxRound;
+
+      var totall = document.getElementById('total').innerText;
+      var totallNumber = parseFloat('totall');
+      document.getElementById('total').innerText = taxRound + phoneAndCoverPrice;
       }
 
       //call to remove phone section
@@ -134,6 +155,25 @@
          var totalPrice = document.getElementById('cover-price').innerText;
          var totalPriceNumberValue = newValuecover * 59;
          document.getElementById('cover-price').innerText = totalPriceNumberValue;
+
+      var subtotal = document.getElementById('sub-total').innerText;
+      var covertotalPrice = document.getElementById('cover-price').innerText;
+      var covertoalPriceNumber =parseFloat(covertotalPrice);
+      var phonetotalPrice = document.getElementById('iphone-price').innerText;
+      var phonetotalPriceNumber =parseFloat(phonetotalPrice);
+      var phoneAndCoverPrice = phonetotalPriceNumber + covertoalPriceNumber;
+      document.getElementById('sub-total').innerText = phoneAndCoverPrice;
+
+
+      var tax = document.getElementById('tax').innerText;
+      var coverTax = phoneAndCoverPrice / 100;
+      var coverTaxParcentage = coverTax * 2;
+      var taxRound = Math.round(coverTaxParcentage);
+      document.getElementById('tax').innerText = taxRound;
+
+      var totall = document.getElementById('total').innerText;
+      var totallNumber = parseFloat('totall');
+      document.getElementById('total').innerText = taxRound + phoneAndCoverPrice;
       }
 
       //call to remove cover section
@@ -147,16 +187,13 @@
             removePhoneSection.style.display = 'none';
          })
       }
-
-      //bill section
-      var subtotal = document.getElementById('sub-total').innerText;
-      var phonetotalPrice = document.getElementById('iphone-price').innerText;
-      var phonetotalPriceNumber =parseFloat(phonetotalPrice);
-      var covertotalPrice = document.getElementById('cover-price').innerText;
-      var covertoalPriceNumber =parseFloat(covertotalPrice);
-      var phoneCoverTotalPrice = phonetotalPriceNumber + covertoalPriceNumber;
-      document.getElementById('sub-total').innerText = phoneCoverTotalPrice;
-      
+      var checkOut = document.getElementById('buy-Button');
+      checkOut.addEventListener('click', function(blank){
+        var removeCart = document.getElementById('remove-cart');
+        removeCart.style.display= 'none'; 
+        var checkOutMessage= document.getElementById('checkout-message');
+        checkOutMessage.style.display= 'block';
+      })
    </script>
 </body>
 
